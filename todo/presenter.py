@@ -9,6 +9,9 @@ from todo.use_cases import ListTodosResponse
 class TodosListPresentation:
     todo_count_label_text: str
 
+    def to_dict(self):
+        return self.__dict__
+
 
 class TodosListPresenter:
     def present_response(
