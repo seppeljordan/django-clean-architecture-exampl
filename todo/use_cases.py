@@ -1,6 +1,6 @@
+from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import List
-from abc import ABC, abstractmethod
 
 
 class TodosDatabaseGateway(ABC):
@@ -11,6 +11,7 @@ class TodosDatabaseGateway(ABC):
     @abstractmethod
     def get_all_todos(self) -> List[None]:
         pass
+
 
 class AddTodoRequest:
     pass
@@ -27,16 +28,14 @@ class AddTodoUseCase:
 @dataclass
 class ListTodosResponse:
     todos: List[None]
-    
+
 
 @dataclass
 class ListTodosUseCase:
     todos_db_gateway: TodosDatabaseGateway
 
     def __call__(self):
-        return ListTodosResponse(
-            todos=self.todos_db_gateway.get_all_todos()
-        )
+        return ListTodosResponse(todos=self.todos_db_gateway.get_all_todos())
 
 
 class CompleteTodoUseCase:
