@@ -1,7 +1,7 @@
 from unittest import TestCase
 
 from todo.presenter import TodosListPresenter
-from todo.use_cases import ListTodosResponse
+from todo.use_cases import ListedTodo, ListTodosResponse
 
 
 class TodosListPresenterTests(TestCase):
@@ -13,5 +13,7 @@ class TodosListPresenterTests(TestCase):
         self.assertEqual(presentation.todo_count_label_text, "0")
 
     def test_that_todo_count_label_shows_1_when_one_todo_is_found(self):
-        presentation = self.presenter.present_response(ListTodosResponse(todos=[None]))
+        presentation = self.presenter.present_response(
+            ListTodosResponse(todos=[ListedTodo(text="test text")])
+        )
         self.assertEqual(presentation.todo_count_label_text, "1")

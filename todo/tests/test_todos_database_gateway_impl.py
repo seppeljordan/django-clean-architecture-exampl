@@ -11,5 +11,5 @@ class TodosDatabaseGatewayImplTestCase(TestCase):
         self.assertFalse(self.db_gateway.get_all_todos())
 
     def test_that_todos_returned_are_not_empty_when_one_was_added_before(self):
-        self.db_gateway.add_todo()
+        self.db_gateway.add_todo(text="test text")
         self.assertTrue(self.db_gateway.get_all_todos())

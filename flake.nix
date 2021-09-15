@@ -8,7 +8,7 @@
         in {
           devShell = pkgs.mkShell {
             buildInputs = (with pkgs; [ pkgs.python3 ])
-              ++ (with pkgs.python3.pkgs; [ django_3 flake8 black isort ]);
+              ++ (with pkgs.python3.pkgs; [ django_3 flake8 black isort mypy ]);
           };
         });
       systemIndependent = { };
