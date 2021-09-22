@@ -19,6 +19,31 @@ class AddTodoUseCaseTests(TestCase):
         )
         self.assertTextInTodos("test todo")
 
+    def test_that_adding_a_todo_is_successful_when_no_other_to_is_already_created(
+        self,
+    ) -> None:
+        response = self.add_todo(
+            AddTodoRequest(
+                text="test todo",
+            )
+        )
+        self.assertTrue(response.is_success)
+
+    def test_that_adding_a_todo_fails_when_todo_with_exact_same_text_was_already_created(
+        self,
+    ) -> None:
+        self.add_todo(
+            AddTodoRequest(
+                text="test todo",
+            )
+        )
+        response = self.add_todo(
+            AddTodoRequest(
+                text="test todo",
+            )
+        )
+        self.assertFalse(response.is_success)
+
     def assertTextInTodos(self, text: str) -> None:
         response = self.list_todos()
         self.assertIn(text, [todo.text for todo in response.todos])

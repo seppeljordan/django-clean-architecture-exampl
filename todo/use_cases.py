@@ -18,6 +18,10 @@ class TodosDatabaseGateway(ABC):
     def get_all_todos(self) -> List[TodoDatabaseModel]:
         pass
 
+    @abstractmethod
+    def has_todo_with_text(self, text: str) -> bool:
+        pass
+
 
 @dataclass
 class AddTodoRequest:
@@ -25,11 +29,19 @@ class AddTodoRequest:
 
 
 @dataclass
+class AddTodoResponse:
+    is_success: bool
+
+
+@dataclass
 class AddTodoUseCase:
     todos_db_gateway: TodosDatabaseGateway
 
-    def __call__(self, request: AddTodoRequest):
+    def __call__(self, request: AddTodoRequest) -> AddTodoResponse:
+        if self.todos_db_gateway.has_todo_with_text(request.text):
+            return AddTodoResponse(is_success=False)
         self.todos_db_gateway.add_todo(text=request.text)
+        return AddTodoResponse(is_success=True)
 
 
 @dataclass

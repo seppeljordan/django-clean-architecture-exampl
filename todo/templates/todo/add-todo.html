@@ -9,6 +9,10 @@
 	    {% endfor %}
 	</ul>
 	{% endif %}
-	<p> There are {{ todo_count_label_text }} todos.
+	<form method="post">
+	    {% csrf_token %}
+	    {{ form }}
+	    <input type="submit" value="Submit">
+	</form>
     </body>
 </html>

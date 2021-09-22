@@ -29,7 +29,7 @@ class DependencyInjector:
 
     @singleton
     def get_todos_database_gateway(self) -> TodosDatabaseGateway:
-        return TodoDatabaseGatewayImpl()
+        return TodoDatabaseGatewayTestImpl()
 
 
 class TodoDatabaseModelImpl(TodoDatabaseModel):
@@ -40,7 +40,7 @@ class TodoDatabaseModelImpl(TodoDatabaseModel):
         return self.text
 
 
-class TodoDatabaseGatewayImpl(TodosDatabaseGateway):
+class TodoDatabaseGatewayTestImpl(TodosDatabaseGateway):
     def __init__(self):
         self.todos: List[TodoDatabaseModelImpl] = []
 
@@ -49,6 +49,9 @@ class TodoDatabaseGatewayImpl(TodosDatabaseGateway):
 
     def get_all_todos(self) -> List[TodoDatabaseModel]:
         return list(self.todos)
+
+    def has_todo_with_text(self, text: str) -> bool:
+        return any(todo.get_text() == text for todo in self.todos)
 
 
 @dataclass
