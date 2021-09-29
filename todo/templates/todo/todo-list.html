@@ -9,6 +9,16 @@
 	    {% endfor %}
 	</ul>
 	{% endif %}
-	<p> There are {{ todo_count_label_text }} todos.
+	<p> There are {{ todo_count_label_text }} todos.</p>
+	<ul>
+	    {% for todo in todo_listing %}
+	    <li>{{ todo }}</li>
+	    {% endfor %}
+	</ul>
+	<form method="post" action="{{ add_todo_url }}">
+	    {% csrf_token %}
+	    {{add_todo_form.as_p }}
+	</form>
+	</p>
     </body>
 </html>

@@ -9,6 +9,7 @@ from todo.use_cases import AddTodoResponse, ListTodosResponse
 @dataclass
 class TodosListViewModel:
     todo_count_label_text: str
+    todo_listing: List[str]
 
     def to_dict(self):
         return asdict(self)
@@ -17,7 +18,8 @@ class TodosListViewModel:
 class TodosListPresenter:
     def present(self, use_case_response_model: ListTodosResponse) -> TodosListViewModel:
         return TodosListViewModel(
-            todo_count_label_text=str(len(use_case_response_model.todos))
+            todo_count_label_text=str(len(use_case_response_model.todos)),
+            todo_listing=[todo.text for todo in use_case_response_model.todos],
         )
 
 

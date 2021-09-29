@@ -38,10 +38,13 @@ def todo_list_view(request):
     presentation = presenter.present(
         list_todos(),
     )
+    context = presentation.to_dict()
+    context["add_todo_form"] = AddTodoForm()
+    context["add_todo_url"] = reverse_lazy("add-todo")
     return render(
         request,
         "todo/todo-list.html",
-        context=presentation.to_dict(),
+        context=context,
     )
 
 
